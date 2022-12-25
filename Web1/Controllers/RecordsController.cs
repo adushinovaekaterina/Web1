@@ -13,7 +13,7 @@ namespace Web1.Views
 {
     public class RecordsController : Controller
     {
-        private BeautyShopEntities1 db = new BeautyShopEntities1();
+        private ServiceCenterEntities1 db = new ServiceCenterEntities1();
 
         // GET: Records
         public ActionResult Index(string sortOrder, string currentFilter, int? page)
@@ -26,7 +26,7 @@ namespace Web1.Views
             ViewBag.ServicesSortParm = sortOrder == "services" ? "services_desc" : "services";
             ViewBag.DaySortParm = sortOrder == "day" ? "day_no" : "day";
 
-            var record = from s in db.Record
+            var record = from s in db.Records
                            select s;
             switch (sortOrder)
             {
@@ -73,7 +73,7 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Record record = db.Record.Find(id);
+            Records record = db.Records.Find(id);
             if (record == null)
             {
                 return HttpNotFound();
@@ -84,7 +84,7 @@ namespace Web1.Views
         // GET: Records/Create
         public ActionResult Create()
         {
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO");
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO");
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat");
             return View();
         }
@@ -94,7 +94,7 @@ namespace Web1.Views
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Comment")] Record record)
+        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Comment")] Records record)
         {
             var clients = from s in db.Clients select s;
             var Name = Request["Clients.Name"].ToString();
@@ -110,7 +110,7 @@ namespace Web1.Views
                     if (ModelState.IsValid)
                     {
                         record.Id_Clients = c.Id;
-                        db.Record.Add(record);
+                        db.Records.Add(record);
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -125,7 +125,7 @@ namespace Web1.Views
                 ModelState.AddModelError("", "Запись уже существует.");
             }
 
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO", record.Id_Employee);
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO", record.Id_Employee);
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat", record.Id_Services);
             return View(record);
         }
@@ -137,12 +137,12 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Record record = db.Record.Find(id);
+            Records record = db.Records.Find(id);
             if (record == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO");
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO");
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat");
             return View(record);
         }
@@ -152,7 +152,7 @@ namespace Web1.Views
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Comment")] Record record)
+        public ActionResult Edit([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Comment")] Records record)
         {
             var clients = from s in db.Clients select s;
             var Name = Request["Clients.Name"].ToString();
@@ -183,7 +183,7 @@ namespace Web1.Views
                 ModelState.AddModelError("", "Запись уже существует.");
             }
 
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO", record.Id_Employee);
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO", record.Id_Employee);
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat", record.Id_Services);
             return View(record);
         }
@@ -195,7 +195,7 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Record record = db.Record.Find(id);
+            Records record = db.Records.Find(id);
             if (record == null)
             {
                 return HttpNotFound();
@@ -208,8 +208,8 @@ namespace Web1.Views
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Record record = db.Record.Find(id);
-            db.Record.Remove(record);
+            Records record = db.Records.Find(id);
+            db.Records.Remove(record);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -48,7 +48,6 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Name)</td>
             <td> @Html.DisplayFor(modelItem => item.Price)</td>
-            <td> @Html.DisplayFor(modelItem => item.Comment)</td>
             <td>
                 <a class="btn btn-success" href="@Url.Action("Details", "Services", new { id = item.Id })">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

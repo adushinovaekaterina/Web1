@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<Web1.Models.Work>
+﻿using System;
+@model PagedList.IPagedList<Web1.Models.Works>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -58,7 +59,7 @@
                     @Html.DisplayFor(modelItem => item.Clients.Surname) @Html.DisplayFor(modelItem => item.Clients.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Surname) @Html.DisplayFor(modelItem => item.Employee.Name)
+                    @Html.DisplayFor(modelItem => item.Employees.Surname) @Html.DisplayFor(modelItem => item.Employees.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Services.Name)

@@ -10,7 +10,7 @@ namespace Web1.Controllers
 {
     public class HomeController : Controller
     {
-        private BeautyShopEntities1 db=new BeautyShopEntities1();
+        private ServiceCenterEntities1 db=new ServiceCenterEntities1();
         public ActionResult Index()
         {
             return View();

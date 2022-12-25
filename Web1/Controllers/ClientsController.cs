@@ -13,7 +13,7 @@ namespace Web1.Controllers
 {
     public class ClientsController : Controller
     {
-        private BeautyShopEntities1 db = new BeautyShopEntities1();
+        private ServiceCenterEntities1 db = new ServiceCenterEntities1();
 
         // GET: Clients
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -68,18 +68,6 @@ namespace Web1.Controllers
                     break;
                 case "phone_desc":
                     clients = clients.OrderByDescending(s => s.Phone);
-                    break;
-                case "email":
-                    clients = clients.OrderBy(s => s.Email);
-                    break;
-                case "email_desc":
-                    clients = clients.OrderByDescending(s => s.Email);
-                    break;
-                case "comment":
-                    clients = clients.OrderBy(s => s.Comment);
-                    break;
-                case "comment_desc":
-                    clients = clients.OrderByDescending(s => s.Comment);
                     break;
                 case "birhdate":
                     clients = clients.OrderBy(s => s.Birhdate);

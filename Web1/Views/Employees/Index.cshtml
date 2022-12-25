@@ -1,4 +1,5 @@
-﻿@model PagedList.IPagedList<Web1.Models.Employee>
+﻿using System;
+@model PagedList.IPagedList<Web1.Models.Employees>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -73,9 +74,6 @@
                 @Html.DisplayFor(modelItem => item.Post)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
                 <a class="btn btn-success" href="@Url.Action("Details", "Employees", new { id = item.Id })">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -106,9 +104,9 @@
         </form>
     </div>
     <div class="col-auto align-self-center">
-            <span class="align-middle">Страница:  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)  из  @Model.PageCount</span>
+        <span class="align-middle">Страница:  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)  из  @Model.PageCount</span>
     </div>
 </div>
 
-    
-    
+
+

@@ -13,7 +13,7 @@ namespace Web1.Controllers
 {
     public class EmployeesController : Controller
     {
-        private BeautyShopEntities1 db = new BeautyShopEntities1();
+        private ServiceCenterEntities1 db = new ServiceCenterEntities1();
         // GET: Employees
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -37,7 +37,7 @@ namespace Web1.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var employee = from s in db.Employee
+            var employee = from s in db.Employees
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -76,12 +76,6 @@ namespace Web1.Controllers
                 case "post_desc":
                     employee = employee.OrderByDescending(s => s.Post);
                     break;
-                case "comment":
-                    employee = employee.OrderBy(s => s.Comment);
-                    break;
-                case "comment_desc":
-                    employee = employee.OrderByDescending(s => s.Comment);
-                    break;
                 case "birhdate":
                     employee = employee.OrderBy(s => s.Birhdate);
                     break;
@@ -104,7 +98,7 @@ namespace Web1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employee.Find(id);
+            Employees employee = db.Employees.Find(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -123,20 +117,20 @@ namespace Web1.Controllers
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Surname,Name,Middle,Phone,Birhdate,Post,Comment")] Employee employee)
+        public ActionResult Create([Bind(Include = "Id,Surname,Name,Middle,Phone,Birhdate,Post,Comment")] Employees employee)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
 
-                    var e=db.Employee.Where(s => s.Phone.Equals(((decimal)employee.Phone)));
+                    var e=db.Employees.Where(s => s.Phone.Equals(((decimal)employee.Phone)));
                     if (e.Any())
                     {
                         ModelState.AddModelError("", "Сотрудник с таким номером телефона уже существует.");
                     }
                     else {
-                        db.Employee.Add(employee);
+                        db.Employees.Add(employee);
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -158,7 +152,7 @@ namespace Web1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employee.Find(id);
+            Employees employee = db.Employees.Find(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -171,7 +165,7 @@ namespace Web1.Controllers
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Surname,Name,Middle,Phone,Birhdate,Post,Comment")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Id,Surname,Name,Middle,Phone,Birhdate,Post,Comment")] Employees employee)
         {
             if (ModelState.IsValid)
             {
@@ -196,7 +190,7 @@ namespace Web1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Employee employee = db.Employee.Find(id);
+            Employees employee = db.Employees.Find(id);
             if (employee == null)
             {
                 return HttpNotFound();
@@ -209,8 +203,8 @@ namespace Web1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Employee employee = db.Employee.Find(id);
-            db.Employee.Remove(employee);
+            Employees employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

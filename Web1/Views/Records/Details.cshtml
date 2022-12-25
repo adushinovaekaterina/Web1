@@ -1,4 +1,5 @@
-﻿@model Web1.Models.Record
+﻿using System;
+@model Web1.Models.Records
 
 @{
     ViewBag.Title = "Details";
@@ -29,14 +30,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Clients.Surname)
         </dt>
 
@@ -45,11 +38,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Employee.Surname)
+            @Html.DisplayNameFor(model => model.Employees.Surname)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Employee.Surname)
+            @Html.DisplayFor(model => model.Employees.Surname)
         </dd>
 
         <dt>

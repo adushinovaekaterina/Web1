@@ -13,7 +13,7 @@ namespace Web1.Views
 {
     public class WorksController : Controller
     {
-        private BeautyShopEntities1 db = new BeautyShopEntities1();
+        private ServiceCenterEntities1 db = new ServiceCenterEntities1();
 
         // GET: Works
         public ActionResult Index(string sortOrder, string currentFilter, int? page)
@@ -26,7 +26,7 @@ namespace Web1.Views
             ViewBag.EmployeeSortParm = sortOrder == "employee" ? "employee_desc" : "employee";
             ViewBag.ServicesSortParm = sortOrder == "services" ? "services_desc" : "services";
 
-            var work = from s in db.Work
+            var work = from s in db.Works
                          select s;
             switch (sortOrder)
             {
@@ -80,7 +80,7 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Work work = db.Work.Find(id);
+            Works work = db.Works.Find(id);
             if (work == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace Web1.Views
         // GET: Works/Create
         public ActionResult Create()
         {
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO");
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO");
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat");
             return View();
         }
@@ -101,7 +101,7 @@ namespace Web1.Views
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Date,Time,Income,Comment")] Work work)
+        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Date,Time,Income,Comment")] Works work)
         {
             var clients = from s in db.Clients select s;
             var Name = Request["Clients.Name"].ToString();
@@ -117,7 +117,7 @@ namespace Web1.Views
                     if (ModelState.IsValid)
                     {
                         work.Id_Clients = c.Id;
-                        db.Work.Add(work);
+                        db.Works.Add(work);
                         db.SaveChanges();
                         return RedirectToAction("Index");
                     }
@@ -132,7 +132,7 @@ namespace Web1.Views
             }
 
 
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO", work.Id_Employee);
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO", work.Id_Employee);
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat", work.Id_Services);
             return View(work);
         }
@@ -144,13 +144,13 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Work work = db.Work.Find(id);
+            Works work = db.Works.Find(id);
             if (work == null)
             {
                 return HttpNotFound();
             }
             
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO", work.Id_Employee);
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO", work.Id_Employee);
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat", work.Id_Services);
             return View(work);
         }
@@ -160,7 +160,7 @@ namespace Web1.Views
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Income,Comment")] Work work)
+        public ActionResult Edit([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Income,Comment")] Works work)
         {
             var clients = from s in db.Clients select s;
             var Name = Request["Clients.Name"].ToString();
@@ -191,7 +191,7 @@ namespace Web1.Views
                 ModelState.AddModelError("", "Работа уже существует.");
             }
 
-            ViewBag.Id_Employee = new SelectList(db.Employee, "Id", "FIO", work.Id_Employee);
+            ViewBag.Id_Employee = new SelectList(db.Employees, "Id", "FIO", work.Id_Employee);
             ViewBag.Id_Services = new SelectList(db.Services, "Id", "Concat", work.Id_Services);
             return View(work);
         }
@@ -203,7 +203,7 @@ namespace Web1.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Work work = db.Work.Find(id);
+            Works work = db.Works.Find(id);
             if (work == null)
             {
                 return HttpNotFound();
@@ -216,8 +216,8 @@ namespace Web1.Views
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Work work = db.Work.Find(id);
-            db.Work.Remove(work);
+            Works work = db.Works.Find(id);
+            db.Works.Remove(work);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

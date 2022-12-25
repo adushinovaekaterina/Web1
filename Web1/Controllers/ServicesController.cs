@@ -15,7 +15,7 @@ namespace Web1.Controllers
 {
     public class ServicesController : Controller
     {
-        private BeautyShopEntities1 db = new BeautyShopEntities1();
+        private ServiceCenterEntities1 db = new ServiceCenterEntities1();
         // GET: Services
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -36,8 +36,7 @@ namespace Web1.Controllers
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                services = services.Where(s => s.Name.Contains(searchString)
-                || s.Comment.Contains(searchString) || s.Price.ToString().Contains(searchString));
+                services = services.Where(s => s.Name.Contains(searchString));
             }
             switch (sortOrder)
             {
@@ -49,12 +48,6 @@ namespace Web1.Controllers
                     break;
                 case "price_desc":
                     services = services.OrderByDescending(s => s.Price);
-                    break;
-                case "comment":
-                    services = services.OrderBy(s => s.Comment);
-                    break;
-                case "comment_desc":
-                    services = services.OrderByDescending(s => s.Comment);
                     break;
                 default:  // Name ascending 
                     services = services.OrderBy(s => s.Name);
