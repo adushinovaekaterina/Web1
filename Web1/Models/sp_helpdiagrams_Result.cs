@@ -11,10 +11,12 @@ namespace Web1.Models
 {
     using System;
     
-    public partial class SP1_Result
+    public partial class sp_helpdiagrams_Result
     {
-        public int Id_Services { get; set; }
+        public string Database { get; set; }
         public string Name { get; set; }
-        public Nullable<int> Column1 { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

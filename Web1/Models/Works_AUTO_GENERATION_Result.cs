@@ -11,7 +11,7 @@ namespace Web1.Models
 {
     using System;
     
-    public partial class Work_AUTO_GENERATION_Result
+    public partial class Works_AUTO_GENERATION_Result
     {
         public int Id { get; set; }
         public int Id_Services { get; set; }
@@ -20,6 +20,5 @@ namespace Web1.Models
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
         public double Income { get; set; }
-        public string Comment { get; set; }
     }
 }

@@ -10,8 +10,9 @@
 namespace Web1.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Record_AUTO_GENERATION_Result
+    public partial class Records
     {
         public int Id { get; set; }
         public int Id_Services { get; set; }
@@ -19,6 +20,9 @@ namespace Web1.Models
         public Nullable<int> Id_Clients { get; set; }
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
-        public string Comment { get; set; }
+    
+        public virtual Clients Clients { get; set; }
+        public virtual Employees Employees { get; set; }
+        public virtual Services Services { get; set; }
     }
 }

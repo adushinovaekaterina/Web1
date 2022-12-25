@@ -11,10 +11,9 @@ namespace Web1.Models
 {
     using System;
     
-    public partial class SP1_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int Id_Services { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> Column1 { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

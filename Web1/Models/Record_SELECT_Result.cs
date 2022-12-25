@@ -19,6 +19,5 @@ namespace Web1.Models
         public Nullable<int> Id_Clients { get; set; }
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
-        public string Comment { get; set; }
     }
 }

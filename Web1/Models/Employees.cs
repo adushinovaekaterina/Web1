@@ -10,9 +10,17 @@
 namespace Web1.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Employee_SELECT_Result
+    public partial class Employees
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employees()
+        {
+            this.Records = new HashSet<Records>();
+            this.Works = new HashSet<Works>();
+        }
+    
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -20,6 +28,10 @@ namespace Web1.Models
         public decimal Phone { get; set; }
         public Nullable<System.DateTime> Birhdate { get; set; }
         public string Post { get; set; }
-        public string Comment { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Records> Records { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Works> Works { get; set; }
     }
 }

@@ -10,11 +10,20 @@
 namespace Web1.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class SP1_Result
+    public partial class Works
     {
+        public int Id { get; set; }
         public int Id_Services { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> Column1 { get; set; }
+        public int Id_Employee { get; set; }
+        public Nullable<int> Id_Clients { get; set; }
+        public System.DateTime Date { get; set; }
+        public System.TimeSpan Time { get; set; }
+        public double Income { get; set; }
+    
+        public virtual Clients Clients { get; set; }
+        public virtual Employees Employees { get; set; }
+        public virtual Services Services { get; set; }
     }
 }

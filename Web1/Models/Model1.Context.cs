@@ -15,10 +15,10 @@ namespace Web1.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class BeautyShopEntities1 : DbContext
+    public partial class ServiceCenterEntities1 : DbContext
     {
-        public BeautyShopEntities1()
-            : base("name=BeautyShopEntities1")
+        public ServiceCenterEntities1()
+            : base("name=ServiceCenterEntities1")
         {
         }
     
@@ -28,10 +28,11 @@ namespace Web1.Models
         }
     
         public virtual DbSet<Clients> Clients { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
-        public virtual DbSet<Record> Record { get; set; }
+        public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Records> Records { get; set; }
         public virtual DbSet<Services> Services { get; set; }
-        public virtual DbSet<Work> Work { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Works> Works { get; set; }
     
         public virtual int Clients_AUTO_GENERATION()
         {
@@ -47,7 +48,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Clients_DELETE", keyParameter);
         }
     
-        public virtual int Clients_INSERT(string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, string inEmail, Nullable<decimal> inPhone, string inComment)
+        public virtual int Clients_INSERT(string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, Nullable<decimal> inPhone)
         {
             var inSurnameParameter = inSurname != null ?
                 new ObjectParameter("inSurname", inSurname) :
@@ -65,19 +66,11 @@ namespace Web1.Models
                 new ObjectParameter("inBirhdate", inBirhdate) :
                 new ObjectParameter("inBirhdate", typeof(System.DateTime));
     
-            var inEmailParameter = inEmail != null ?
-                new ObjectParameter("inEmail", inEmail) :
-                new ObjectParameter("inEmail", typeof(string));
-    
             var inPhoneParameter = inPhone.HasValue ?
                 new ObjectParameter("inPhone", inPhone) :
                 new ObjectParameter("inPhone", typeof(decimal));
     
-            var inCommentParameter = inComment != null ?
-                new ObjectParameter("inComment", inComment) :
-                new ObjectParameter("inComment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Clients_INSERT", inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inEmailParameter, inPhoneParameter, inCommentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Clients_INSERT", inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inPhoneParameter);
         }
     
         public virtual ObjectResult<Clients_SELECT_Result> Clients_SELECT()
@@ -85,7 +78,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Clients_SELECT_Result>("Clients_SELECT");
         }
     
-        public virtual int Clients_UPDATE(Nullable<int> inId, string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, string inEmail, Nullable<decimal> inPhone, string inComment)
+        public virtual int Clients_UPDATE(Nullable<int> inId, string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, string inEmail, Nullable<decimal> inPhone)
         {
             var inIdParameter = inId.HasValue ?
                 new ObjectParameter("inId", inId) :
@@ -115,16 +108,7 @@ namespace Web1.Models
                 new ObjectParameter("inPhone", inPhone) :
                 new ObjectParameter("inPhone", typeof(decimal));
     
-            var inCommentParameter = inComment != null ?
-                new ObjectParameter("inComment", inComment) :
-                new ObjectParameter("inComment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Clients_UPDATE", inIdParameter, inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inEmailParameter, inPhoneParameter, inCommentParameter);
-        }
-    
-        public virtual int Employee_AUTO_GENERATION()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_AUTO_GENERATION");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Clients_UPDATE", inIdParameter, inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inEmailParameter, inPhoneParameter);
         }
     
         public virtual int Employee_DELETE(Nullable<int> key)
@@ -136,7 +120,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_DELETE", keyParameter);
         }
     
-        public virtual int Employee_INSERT(string inSurname, string inName, string inMiddle, Nullable<decimal> inPhone, Nullable<System.DateTime> inBirhdate, string inPost, string inComment)
+        public virtual int Employee_INSERT(string inSurname, string inName, string inMiddle, Nullable<decimal> inPhone, Nullable<System.DateTime> inBirhdate, string inPost)
         {
             var inSurnameParameter = inSurname != null ?
                 new ObjectParameter("inSurname", inSurname) :
@@ -162,19 +146,15 @@ namespace Web1.Models
                 new ObjectParameter("inPost", inPost) :
                 new ObjectParameter("inPost", typeof(string));
     
-            var inCommentParameter = inComment != null ?
-                new ObjectParameter("inComment", inComment) :
-                new ObjectParameter("inComment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_INSERT", inSurnameParameter, inNameParameter, inMiddleParameter, inPhoneParameter, inBirhdateParameter, inPostParameter, inCommentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_INSERT", inSurnameParameter, inNameParameter, inMiddleParameter, inPhoneParameter, inBirhdateParameter, inPostParameter);
         }
     
-        public virtual ObjectResult<Employee_SELECT_Result> Employee_SELECT()
+        public virtual int Employee_SELECT()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Employee_SELECT_Result>("Employee_SELECT");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_SELECT");
         }
     
-        public virtual int Employee_UPDATE(Nullable<int> inId, string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, string inPost, Nullable<decimal> inPhone, string inComment)
+        public virtual int Employee_UPDATE(Nullable<int> inId, string inSurname, string inName, string inMiddle, Nullable<System.DateTime> inBirhdate, string inPost, Nullable<decimal> inPhone)
         {
             var inIdParameter = inId.HasValue ?
                 new ObjectParameter("inId", inId) :
@@ -204,21 +184,12 @@ namespace Web1.Models
                 new ObjectParameter("inPhone", inPhone) :
                 new ObjectParameter("inPhone", typeof(decimal));
     
-            var inCommentParameter = inComment != null ?
-                new ObjectParameter("inComment", inComment) :
-                new ObjectParameter("inComment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_UPDATE", inIdParameter, inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inPostParameter, inPhoneParameter, inCommentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employee_UPDATE", inIdParameter, inSurnameParameter, inNameParameter, inMiddleParameter, inBirhdateParameter, inPostParameter, inPhoneParameter);
         }
     
-        public virtual int Generation_Email(ObjectParameter resultEmail)
+        public virtual int Employees_AUTO_GENERATION()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Generation_Email", resultEmail);
-        }
-    
-        public virtual ObjectResult<Record_AUTO_GENERATION_Result> Record_AUTO_GENERATION()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Record_AUTO_GENERATION_Result>("Record_AUTO_GENERATION");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Employees_AUTO_GENERATION");
         }
     
         public virtual int Record_DELETE(Nullable<int> key)
@@ -230,7 +201,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Record_DELETE", keyParameter);
         }
     
-        public virtual int Record_INSERT(Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, string comment)
+        public virtual int Record_INSERT(Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time)
         {
             var id_servicesParameter = id_services.HasValue ?
                 new ObjectParameter("Id_services", id_services) :
@@ -252,11 +223,7 @@ namespace Web1.Models
                 new ObjectParameter("Time", time) :
                 new ObjectParameter("Time", typeof(System.TimeSpan));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Record_INSERT", id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, commentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Record_INSERT", id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter);
         }
     
         public virtual ObjectResult<Record_SELECT_Result> Record_SELECT()
@@ -264,7 +231,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Record_SELECT_Result>("Record_SELECT");
         }
     
-        public virtual int Record_UPDATE(Nullable<int> id, Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, string comment)
+        public virtual int Record_UPDATE(Nullable<int> id, Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -290,11 +257,12 @@ namespace Web1.Models
                 new ObjectParameter("Time", time) :
                 new ObjectParameter("Time", typeof(System.TimeSpan));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Record_UPDATE", idParameter, id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Record_UPDATE", idParameter, id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, commentParameter);
+        public virtual int Records_AUTO_GENERATION()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Records_AUTO_GENERATION");
         }
     
         public virtual int Services_DELETE(Nullable<int> key)
@@ -306,21 +274,17 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Services_DELETE", keyParameter);
         }
     
-        public virtual int Services_INSERT(string name, string comment, Nullable<int> price)
+        public virtual int Services_INSERT(string name, Nullable<int> price)
         {
             var nameParameter = name != null ?
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
-    
             var priceParameter = price.HasValue ?
                 new ObjectParameter("Price", price) :
                 new ObjectParameter("Price", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Services_INSERT", nameParameter, commentParameter, priceParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Services_INSERT", nameParameter, priceParameter);
         }
     
         public virtual ObjectResult<Services_SELECT_Result> Services_SELECT()
@@ -328,7 +292,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Services_SELECT_Result>("Services_SELECT");
         }
     
-        public virtual int Services_UPDATE(Nullable<int> id, string name, string comment, Nullable<int> price)
+        public virtual int Services_UPDATE(Nullable<int> id, string name, Nullable<int> price)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -338,24 +302,123 @@ namespace Web1.Models
                 new ObjectParameter("Name", name) :
                 new ObjectParameter("Name", typeof(string));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
-    
             var priceParameter = price.HasValue ?
                 new ObjectParameter("Price", price) :
                 new ObjectParameter("Price", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Services_UPDATE", idParameter, nameParameter, commentParameter, priceParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Services_UPDATE", idParameter, nameParameter, priceParameter);
         }
     
-        public virtual ObjectResult<SP1_Result> SP1(Nullable<System.DateTime> year)
+        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(System.DateTime));
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP1_Result>("SP1", yearParameter);
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var versionParameter = version.HasValue ?
+                new ObjectParameter("version", version) :
+                new ObjectParameter("version", typeof(int));
+    
+            var definitionParameter = definition != null ?
+                new ObjectParameter("definition", definition) :
+                new ObjectParameter("definition", typeof(byte[]));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
+        }
+    
+        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
+        }
+    
+        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
+        {
+            var diagramnameParameter = diagramname != null ?
+                new ObjectParameter("diagramname", diagramname) :
+                new ObjectParameter("diagramname", typeof(string));
+    
+            var owner_idParameter = owner_id.HasValue ?
+                new ObjectParameter("owner_id", owner_id) :
+                new ObjectParameter("owner_id", typeof(int));
+    
+            var new_diagramnameParameter = new_diagramname != null ?
+                new ObjectParameter("new_diagramname", new_diagramname) :
+                new ObjectParameter("new_diagramname", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
+        }
+    
+        public virtual int sp_upgraddiagrams()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
+        }
+    
+        public virtual ObjectResult<SP1_Result> SP1(Nullable<System.DateTime> day)
+        {
+            var dayParameter = day.HasValue ?
+                new ObjectParameter("day", day) :
+                new ObjectParameter("day", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP1_Result>("SP1", dayParameter);
         }
     
         public virtual ObjectResult<SP2_Result> SP2(string letter)
@@ -367,11 +430,6 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP2_Result>("SP2", letterParameter);
         }
     
-        public virtual ObjectResult<Work_AUTO_GENERATION_Result> Work_AUTO_GENERATION()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Work_AUTO_GENERATION_Result>("Work_AUTO_GENERATION");
-        }
-    
         public virtual int Work_DELETE(Nullable<int> key)
         {
             var keyParameter = key.HasValue ?
@@ -381,7 +439,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Work_DELETE", keyParameter);
         }
     
-        public virtual int Work_INSERT(Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, Nullable<double> income, string comment)
+        public virtual int Work_INSERT(Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, Nullable<double> income)
         {
             var id_servicesParameter = id_services.HasValue ?
                 new ObjectParameter("Id_services", id_services) :
@@ -407,11 +465,7 @@ namespace Web1.Models
                 new ObjectParameter("Income", income) :
                 new ObjectParameter("Income", typeof(double));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Work_INSERT", id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, incomeParameter, commentParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Work_INSERT", id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, incomeParameter);
         }
     
         public virtual ObjectResult<Work_SELECT_Result> Work_SELECT()
@@ -419,7 +473,7 @@ namespace Web1.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Work_SELECT_Result>("Work_SELECT");
         }
     
-        public virtual int Work_UPDATE(Nullable<int> id, Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, Nullable<double> income, string comment)
+        public virtual int Work_UPDATE(Nullable<int> id, Nullable<int> id_services, Nullable<int> id_Employee, Nullable<int> id_Clients, Nullable<System.DateTime> date, Nullable<System.TimeSpan> time, Nullable<double> income)
         {
             var idParameter = id.HasValue ?
                 new ObjectParameter("Id", id) :
@@ -449,11 +503,12 @@ namespace Web1.Models
                 new ObjectParameter("Income", income) :
                 new ObjectParameter("Income", typeof(double));
     
-            var commentParameter = comment != null ?
-                new ObjectParameter("Comment", comment) :
-                new ObjectParameter("Comment", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Work_UPDATE", idParameter, id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, incomeParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Work_UPDATE", idParameter, id_servicesParameter, id_EmployeeParameter, id_ClientsParameter, dateParameter, timeParameter, incomeParameter, commentParameter);
+        public virtual ObjectResult<Works_AUTO_GENERATION_Result> Works_AUTO_GENERATION()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Works_AUTO_GENERATION_Result>("Works_AUTO_GENERATION");
         }
     }
 }

@@ -18,8 +18,6 @@ namespace Web1.Models
         public string Name { get; set; }
         public string Middle { get; set; }
         public Nullable<System.DateTime> Birhdate { get; set; }
-        public string Email { get; set; }
         public decimal Phone { get; set; }
-        public string Comment { get; set; }
     }
 }

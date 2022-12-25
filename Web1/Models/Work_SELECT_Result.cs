@@ -20,6 +20,5 @@ namespace Web1.Models
         public System.DateTime Date { get; set; }
         public System.TimeSpan Time { get; set; }
         public double Income { get; set; }
-        public string Comment { get; set; }
     }
 }
