@@ -1,5 +1,4 @@
-﻿using System;
-@model PagedList.IPagedList<Web1.Models.Employees>
+﻿@model PagedList.IPagedList<Web1.Models.Employees>
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -45,9 +44,6 @@
         </th>
         <th>
             <a class="btn btn-light" href="@Url.Action("Index", "Employees", new { sortOrder = ViewBag.PostSortParm, currentFilter = ViewBag.CurrentFilter })">Должность</a>
-        </th>
-        <th>
-            <a class="btn btn-light" href="@Url.Action("Index", "Employees",new { sortOrder = ViewBag.CommentSortParm, currentFilter = ViewBag.CurrentFilter })">Комментарий</a>
         </th>
         <th></th>
     </tr>
