@@ -44,9 +44,6 @@ namespace Web1.Models
         [RegularExpression(@"[z0-9]{0,10}", ErrorMessage = "Некорректная стоимость")]
         public double Income { get; set; }
 
-        [Display(Name = "Комментарий")]
-        public string Comment { get; set; }
-
         public virtual Clients Clients { get; set; }
         public virtual Employees Employees { get; set; }
         public virtual Services Services { get; set; }

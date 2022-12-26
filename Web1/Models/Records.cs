@@ -26,21 +26,17 @@ namespace Web1.Models
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Клиент")]
-        public Int32? Id_Clients { get; set; }
+        public int Id_Clients { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Дата")]
         [DataType(DataType.Date)]
         public System.DateTime Date { get; set; }
 
-
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Время")]
         [DataType(DataType.Time)]
         public System.TimeSpan Time { get; set; }
-
-        [Display(Name = "Комментарий")]
-        public string Comment { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         public virtual Clients Clients { get; set; }

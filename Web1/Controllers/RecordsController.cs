@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Web1.Models;
+using Xunit;
 
 namespace Web1.Views
 {
@@ -27,7 +28,7 @@ namespace Web1.Views
             ViewBag.DaySortParm = sortOrder == "day" ? "day_no" : "day";
 
             var record = from s in db.Records
-                           select s;
+                         select s;
             switch (sortOrder)
             {
                 case "Date_desc":
@@ -57,7 +58,7 @@ namespace Web1.Views
                 case "services_desc":
                     record = record.OrderByDescending(s => s.Id_Services);
                     break;
-                default: 
+                default:
                     record = record.OrderBy(s => s.Date);
                     break;
             }
@@ -94,7 +95,7 @@ namespace Web1.Views
         // Дополнительные сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Id_Clients,Date,Time,Comment")] Records record)
+        public ActionResult Create([Bind(Include = "Id,Id_Services,Id_Employee,Date,Time,Comment")] Records record)
         {
             var clients = from s in db.Clients select s;
             var Name = Request["Clients.Name"].ToString();
