@@ -10,11 +10,16 @@
 namespace Web1.Models
 {
     using System;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class SP1_Result
     {
-        public int Id_Services { get; set; }
+
+        [Display(Name = "Название услуги")]
         public string Name { get; set; }
+
+        [Display(Name = "Количество")]
         public Nullable<int> Column1 { get; set; }
     }
 }

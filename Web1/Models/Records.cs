@@ -26,7 +26,7 @@ namespace Web1.Models
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Клиент")]
-        public int Id_Clients { get; set; }
+        public Int32? Id_Clients { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Дата")]
