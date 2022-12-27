@@ -528,7 +528,6 @@
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Program.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\StatisticsEmployeesController.cs" />
     <Compile Include="Controllers\StatisticsServicesController.cs" />
